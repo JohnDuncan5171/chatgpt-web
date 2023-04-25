@@ -1,0 +1,1 @@
+nohup pnpm start >a.log 2>& 1 &
