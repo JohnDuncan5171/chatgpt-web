@@ -83,27 +83,7 @@ watch(
         <div class="flex-1 min-h-0 pb-4 overflow-hidden">
           <List />
         </div>
-        <div class="p-4">
-          <NButton block show="true&quot;" @click="jump('https://whimsical.com/')">
-            {{ $t('AI思维导图') }}
-          </NButton>
-          <br>
-          <NButton block show="true&quot;" @click="jump('https://js.design/AI')">
-            {{ $t('AI原型设计') }}
-          </NButton>
-          <br>
-          <NButton block show="true&quot;" @click="jump('https://app.akkio.com/')">
-            {{ $t('AI数据分析') }}
-          </NButton>
-          <br>
-          <NButton block show="true&quot;" @click="jump('https://duomosmart.com/doc/')">
-            {{ $t('AI生成文档') }}
-          </NButton>
-          <br>
-          <NButton block @click="show = true">
-            {{ $t('store.siderButton') }}
-          </NButton>
-        </div>
+        <div class="p-4" />
       </main>
       <Footer />
     </div>

@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import type { Ref } from 'vue'
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, defineAsyncComponent, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { NAutoComplete, NButton, NInput, useDialog, useMessage } from 'naive-ui'
@@ -13,7 +13,7 @@ import { useUsingContext } from './hooks/useUsingContext'
 import HeaderComponent from './components/Header/index.vue'
 import { HoverButton, SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { useChatStore, usePromptStore } from '@/store'
+import { useChatStore, usePromptStore, useUserStore } from '@/store'
 import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
 
@@ -43,6 +43,12 @@ const prompt = ref<string>('')
 const loading = ref<boolean>(false)
 const inputRef = ref<Ref | null>(null)
 
+const userStore = useUserStore()
+const userInfo = computed(() => userStore.userInfo)
+const isLogin = ref(userInfo.value.isLogin ?? false)
+const showLoginPanel = ref(false)
+const LoginPanel = defineAsyncComponent(() => import('@/components/common/Login/index.vue'))
+
 // 添加PromptStore
 const promptStore = usePromptStore()
 
@@ -56,7 +62,14 @@ dataSources.value.forEach((item, index) => {
 })
 
 function handleSubmit() {
-  onConversation()
+  console.info(isLogin.value)
+  if (!isLogin.value) {
+    showLoginPanel.value = true
+  }
+  else {
+    showLoginPanel.value = false
+    onConversation()
+  }
 }
 
 async function onConversation() {
@@ -557,6 +570,7 @@ onUnmounted(() => {
           </NButton>
         </div>
       </div>
+      <LoginPanel v-if="showLoginPanel" v-model:visible="showLoginPanel" />
     </footer>
   </div>
 </template>
