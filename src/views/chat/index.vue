@@ -46,7 +46,7 @@ const inputRef = ref<Ref | null>(null)
 const userStore = useUserStore()
 const userInfo = computed(() => userStore.userInfo)
 const isLogin = ref(userInfo.value.isLogin ?? false)
-const showLoginPanel = ref(false)
+const showLoginPanel = ref(!isLogin.value)
 const LoginPanel = defineAsyncComponent(() => import('@/components/common/Login/index.vue'))
 
 // 添加PromptStore
@@ -62,13 +62,13 @@ dataSources.value.forEach((item, index) => {
 })
 
 function handleSubmit() {
-  console.info(isLogin.value)
-  if (!isLogin.value) {
-    showLoginPanel.value = true
-  }
-  else {
+  console.log(isLogin)
+  if (isLogin.value) {
     showLoginPanel.value = false
     onConversation()
+  }
+  else {
+    showLoginPanel.value = true
   }
 }
 
