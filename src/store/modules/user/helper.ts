@@ -8,7 +8,6 @@ export interface UserInfo {
   description: string
   isLogin: boolean
   password: string
-  username: string
 }
 
 export interface UserState {
@@ -23,7 +22,6 @@ export function defaultSetting(): UserState {
       description: 'Star on <a href="https://github.com/Chanzhaoyu/chatgpt-bot" class="text-blue-500" target="_blank" >Github</a>',
       isLogin: false,
       password: '',
-      username: '',
     },
   }
 }
